@@ -810,3 +810,25 @@ html.lenis, html.lenis body { height: auto; }
   .m-vel .pic { max-width: 130px; }
   .m-cradle .pic, .m-peacock .pic { max-width: 210px; }
 }
+
+/* opening screen: keep "ஓம் சரவணபவ" clear of the baby image */
+.intro-baby { height: auto; width: auto; display: flex; justify-content: center; margin: 0 auto 12px; }
+.intro-baby img { width: 128px; }
+.intro-baby .bounce { animation: hover-soft 5s ease-in-out infinite; }
+.om { position: relative; z-index: 2; margin: 0 0 10px; font-size: 1.05rem; }
+
+/* ================= Murugan images placed with purpose ================= */
+.sec-art { display: flex; justify-content: center; margin: 0 auto 6px; }
+.sec-art img { height: auto; filter: drop-shadow(0 14px 16px rgba(90, 40, 0, 0.22)); }
+.art-cradle img { width: 200px; }
+.art-peacock img { width: 190px; }
+.art-cradle .rock { transform-origin: 50% 0; animation: rock 5s ease-in-out infinite; }
+.art-peacock .fly { animation: hover-soft 5s ease-in-out infinite; }
+.foot-art { height: 190px; }
+.fan-foot { height: 150px; width: 260px; margin-left: -130px; opacity: 0.85; }
+.foot-murugan { position: relative; z-index: 2; width: 150px; margin: 0 auto; animation: hover-soft 5s ease-in-out infinite; filter: drop-shadow(0 12px 14px rgba(90, 40, 0, 0.25)); }
+@media (max-width: 480px) {
+  .art-cradle img { width: 170px; }
+  .art-peacock img { width: 160px; }
+  .foot-murugan { width: 130px; }
+}

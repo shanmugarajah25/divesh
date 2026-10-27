@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Defs from '../components/Defs.astro';
 import Bell from '../components/Bell.astro';
-import Vel from '../components/Vel.astro';
 import Diya from '../components/Diya.astro';
 import Divider from '../components/Divider.astro';
 import FeatherFan from '../components/FeatherFan.astro';
@@ -71,39 +70,11 @@ const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(calendar.
       </div>
     </section>
 
-    <section class="blessings" aria-labelledby="arul">
-      <h2 id="arul" class="section-title reveal"><span>முருகன் அருள்</span></h2>
-      <div class="trio">
-        <figure class="murti m-vel reveal">
-          <div class="stage">
-            <div class="glow-vel" aria-hidden="true"></div>
-            <Image src={muruganVel} alt="Baby Murugan holding his golden Vel" widths={[260, 420]} sizes="(max-width: 860px) 60vw, 240px" class="pic" />
-          </div>
-          <figcaption>வெற்றிவேல் முருகா</figcaption>
-        </figure>
-        <figure class="murti m-cradle reveal">
-          <div class="stage">
-            <div class="rock">
-              <Image src={muruganCradle} alt="Baby Murugan sleeping in a flower-decked golden cradle" widths={[280, 460]} sizes="(max-width: 860px) 64vw, 270px" class="pic" />
-            </div>
-          </div>
-          <figcaption>ஆராரோ ஆரிரரோ</figcaption>
-        </figure>
-        <figure class="murti m-peacock reveal">
-          <div class="stage">
-            <div class="fly">
-              <Image src={muruganPeacock} alt="Baby Murugan riding his peacock" widths={[280, 460]} sizes="(max-width: 860px) 64vw, 270px" class="pic" />
-            </div>
-          </div>
-          <figcaption>மயில் வாகனா</figcaption>
-        </figure>
-      </div>
-      <div class="quote reveal">
-        <p>யாமிருக்க பயமேன்</p>
-      </div>
-    </section>
 
     <section class="details" id="details" aria-labelledby="when">
+      <div class="sec-art art-cradle reveal" aria-hidden="true">
+        <div class="rock"><Image src={muruganCradle} alt="" widths={[240, 400]} sizes="200px" /></div>
+      </div>
       <h2 id="when" class="section-title reveal"><span>விழா விபரம்</span></h2>
       <div class="cards">
         <article class="card reveal">
@@ -160,6 +131,9 @@ const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(calendar.
     </section>
 
     <section class="location" id="location" aria-labelledby="where">
+      <div class="sec-art art-peacock reveal" aria-hidden="true">
+        <div class="fly"><Image src={muruganPeacock} alt="" widths={[240, 400]} sizes="190px" /></div>
+      </div>
       <h2 id="where" class="section-title reveal"><span>வழிகாட்டி</span></h2>
       <div class="loc-grid">
         <div class="qr-card reveal">
@@ -191,8 +165,8 @@ const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(calendar.
       <p class="foot-ta reveal">தங்கள் வருகையை அன்புடன் எதிர்பார்க்கும்</p>
       <p class="hosts reveal">{event.hostsTa}</p>
       <div class="foot-art" aria-hidden="true">
-        <FeatherFan class="fan-foot reveal" count={7} spread={110} />
-        <Vel class="foot-vel" />
+        <FeatherFan class="fan-foot reveal" count={7} spread={120} />
+        <Image src={muruganVel} alt="" widths={[200, 340]} sizes="150px" class="foot-murugan" />
       </div>
       <p class="vetrivel">வெற்றிவேல் முருகனுக்கு அரோகரா!</p>
     </footer>
