@@ -1,7 +1,7 @@
 {
-  "name": "Divesh's Thottil Vizha",
-  "short_name": "Divesh",
-  "description": "Cradle ceremony invitation, 5 November 2026, Jaffna.",
+  "name": "தொட்டில் விழா அழைப்பிதழ்",
+  "short_name": "தொட்டில் விழா",
+  "description": "தொட்டில் விழா · 05/11/2026 காலை 10.00 · கொழும்புத்துறை, யாழ்ப்பாணம்",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fff8ec",
