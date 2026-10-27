@@ -1044,3 +1044,9 @@ body.event-over .dock a[href*="calendar.google"] { display: none; }
 .home { margin-top: 18px !important; }
 .words .divider { margin-top: 16px; }
 @media (max-width: 600px) { .home { margin-top: 16px !important; } }
+/* space between host names and the footer Murugan */
+.foot-art { margin-top: 34px !important; }
+@media (max-width: 600px) { .foot-art { margin-top: 24px !important; } }
+/* let the footer art grow to the image height so it never rises over the names */
+.foot-art { height: auto !important; min-height: 0; }
+.foot-murugan { display: block; }
