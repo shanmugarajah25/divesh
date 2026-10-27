@@ -174,6 +174,23 @@ if (seen) {
   openBtn.focus({ preventScroll: true });
 }
 
+/* ---------- Sticky bar: smooth jump + active state ---------- */
+document.querySelectorAll<HTMLAnchorElement>('.dock a[data-scroll]').forEach((a) => {
+  a.addEventListener('click', (e) => {
+    const id = a.getAttribute('href')!;
+    const target = document.querySelector<HTMLElement>(id);
+    if (!target) return;
+    e.preventDefault();
+    if (lenis) lenis.scrollTo(target, { offset: -16, duration: 1.4 });
+    else target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+const detailsBtn = document.querySelector('.dock a[href="#details"]');
+const detailsSec = document.getElementById('details');
+if (detailsBtn && detailsSec) {
+  new IntersectionObserver(([e]) => detailsBtn.classList.toggle('active', e.isIntersecting), { threshold: 0.3 }).observe(detailsSec);
+}
+
 /* ---------- Scroll reveal ---------- */
 const io = new IntersectionObserver(
   (entries) => {
