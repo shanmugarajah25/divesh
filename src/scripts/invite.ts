@@ -66,7 +66,7 @@ function drawPetal(r: number, c1: string, c2: string) {
 }
 
 function count() {
-  const base = W < 600 ? 20 : 34;
+  const base = W < 600 ? 8 : 14;
   return reduceMotion ? 0 : base + burst;
 }
 
@@ -131,6 +131,7 @@ function shower(x: number, y: number, n = 14) {
   }
 }
 document.addEventListener('pointerdown', (e) => {
+  if (true) return; // tap shower disabled for a calmer page
   if (!document.body.classList.contains('opened')) return;
   if ((e.target as HTMLElement).closest('a, button, iframe')) return;
   shower(e.clientX, e.clientY);
@@ -156,8 +157,8 @@ function openInvite() {
   document.body.classList.remove('locked');
   document.body.classList.add('opened');
   lenis?.start();
-  burst = 70;
-  shower(W / 2, H * 0.45, 30);
+  burst = 24;
+  shower(W / 2, H * 0.4, 12);
   try { sessionStorage.setItem('divesh-opened', '1'); } catch {}
   setTimeout(() => intro.remove(), reduceMotion ? 0 : 1700);
   loadMap();

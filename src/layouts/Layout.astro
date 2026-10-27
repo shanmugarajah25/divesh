@@ -8,8 +8,8 @@ interface Props {
 }
 
 const {
-  title = `${event.babyTa} தொட்டில் விழா | ${event.babyEn}`,
-  description = `எமது செல்வப் புதல்வன் ${event.babyTa} இன் தொட்டில் விழா. ${event.dateText} (${event.dayTa}) காலை ${event.timeText}, கொழும்புத்துறை, யாழ்ப்பாணம்.`,
+  title = `தொட்டில் விழா அழைப்பிதழ்`,
+  description = `எமது செல்வப் புதல்வனின் தொட்டில் விழா. ${event.dateText} (${event.dayTa}) காலை ${event.timeText}, கொழும்புத்துறை, யாழ்ப்பாணம்.`,
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL(event.siteUrl);
@@ -30,7 +30,7 @@ const ogImage = new URL('/og.jpg', siteUrl).href;
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:title" content={`${event.babyTa} தொட்டில் விழா`} />
+    <meta property="og:title" content={`தொட்டில் விழா அழைப்பிதழ்`} />
     <meta property="og:description" content={`${event.dateText} (${event.dayTa}) · காலை ${event.timeText} · கொழும்புத்துறை, யாழ்ப்பாணம்`} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
