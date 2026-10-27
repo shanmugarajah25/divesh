@@ -24,11 +24,12 @@ const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(calendar.
 
   <!-- Opening: temple doors -->
   <div id="intro" class="intro" role="dialog" aria-label="Invitation">
+    <div class="door-light" aria-hidden="true"></div>
     <div class="door door-l" aria-hidden="true"><span class="knob"></span></div>
     <div class="door door-r" aria-hidden="true"><span class="knob"></span></div>
     <div class="intro-inner">
       <div class="intro-baby">
-        <Image src={muruganVel} alt="" widths={[220, 360]} sizes="180px" loading="eager" class="bounce" />
+        <Image src={muruganVel} alt="" widths={[140, 260]} sizes="128px" quality={72} loading="eager" fetchpriority="high" class="bounce" />
       </div>
       <p class="om">ஓம் சரவணபவ</p>
       <p class="intro-sub">அன்புடன் அழைக்கின்றோம்</p>
@@ -48,7 +49,7 @@ const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(calendar.
       <div class="art reveal">
         <div class="arch">
           <div class="swing">
-            <Image src={baby} alt="Baby Murugan on a flower-decked golden cradle" widths={[400, 640, 900]} sizes="(max-width: 860px) 86vw, 440px" loading="eager" fetchpriority="high" />
+            <Image src={baby} alt="Baby Murugan on a flower-decked golden cradle" widths={[300, 460, 640]} sizes="(max-width: 860px) 74vw, 380px" quality={70} loading="eager" />
           </div>
         </div>
         <div class="diyas" aria-hidden="true">
@@ -73,7 +74,7 @@ const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(calendar.
 
     <section class="details" id="details" aria-labelledby="when">
       <div class="sec-art art-cradle reveal" aria-hidden="true">
-        <div class="rock"><Image src={muruganCradle} alt="" widths={[240, 400]} sizes="200px" /></div>
+        <div class="rock"><Image src={muruganCradle} alt="" widths={[200, 400]} sizes="(max-width: 480px) 170px, 200px" quality={72} /></div>
       </div>
       <h2 id="when" class="section-title reveal"><span>விழா விபரம்</span></h2>
       <div class="cards">
@@ -132,7 +133,7 @@ const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(calendar.
 
     <section class="location" id="location" aria-labelledby="where">
       <div class="sec-art art-peacock reveal" aria-hidden="true">
-        <div class="fly"><Image src={muruganPeacock} alt="" widths={[240, 400]} sizes="190px" /></div>
+        <div class="fly"><Image src={muruganPeacock} alt="" widths={[190, 380]} sizes="(max-width: 480px) 160px, 190px" quality={72} /></div>
       </div>
       <h2 id="where" class="section-title reveal"><span>வழிகாட்டி</span></h2>
       <div class="loc-grid">
@@ -166,7 +167,7 @@ const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(calendar.
       <p class="hosts reveal">{event.hostsTa}</p>
       <div class="foot-art" aria-hidden="true">
         <FeatherFan class="fan-foot reveal" count={7} spread={120} />
-        <Image src={muruganVel} alt="" widths={[200, 340]} sizes="150px" class="foot-murugan" />
+        <Image src={muruganVel} alt="" widths={[150, 300]} sizes="(max-width: 480px) 130px, 150px" quality={72} class="foot-murugan" />
       </div>
       <p class="vetrivel">வெற்றிவேல் முருகனுக்கு அரோகரா!</p>
     </footer>

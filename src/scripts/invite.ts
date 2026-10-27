@@ -7,7 +7,7 @@ type Petal = { g?: number; x: number; y: number; r: number; vy: number; vx: numb
 // Real flower images (jasmine, rose petal, marigold) fall and tumble
 const flowerImgs = ['jasmine', 'rose-petal', 'marigold'].map((n) => {
   const img = new Image();
-  img.src = `/flowers/${n}.png`;
+  img.src = `/flowers/${n}.webp`;
   return img;
 });
 const canvas = document.getElementById('petals') as HTMLCanvasElement;
@@ -160,8 +160,7 @@ function openInvite() {
   burst = 24;
   shower(W / 2, H * 0.4, 12);
   try { sessionStorage.setItem('divesh-opened', '1'); } catch {}
-  setTimeout(() => intro.remove(), reduceMotion ? 0 : 1700);
-  loadMap();
+  setTimeout(() => intro.remove(), reduceMotion ? 0 : 2700);
 }
 openBtn.addEventListener('click', openInvite);
 let seen = false;
@@ -248,4 +247,10 @@ function loadMap() {
   const f = document.querySelector<HTMLIFrameElement>('.map iframe');
   if (f && !f.src && f.dataset.src) f.src = f.dataset.src;
 }
-if (seen) loadMap();
+// load the Google map only when guests scroll near it
+const mapBox = document.querySelector('.map');
+if (mapBox) {
+  new IntersectionObserver((entries, obs) => {
+    if (entries.some((e) => e.isIntersecting)) { loadMap(); obs.disconnect(); }
+  }, { rootMargin: '400px 0px' }).observe(mapBox);
+}

@@ -1,0 +1,14 @@
+/deco/*
+  Cache-Control: public, max-age=604800
+
+/flowers/*
+  Cache-Control: public, max-age=604800
+
+/*.png
+  Cache-Control: public, max-age=604800
+
+/og.jpg
+  Cache-Control: public, max-age=604800
+
+/
+  Cache-Control: public, max-age=300, must-revalidate

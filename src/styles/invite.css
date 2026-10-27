@@ -832,3 +832,87 @@ html.lenis, html.lenis body { height: auto; }
   .art-peacock img { width: 160px; }
   .foot-murugan { width: 130px; }
 }
+
+/* host name and the line above it stay on one line */
+.hosts { white-space: nowrap; font-size: clamp(0.92rem, 4.9vw, 2rem); letter-spacing: -0.01em; }
+.foot-ta { white-space: nowrap; font-size: clamp(0.82rem, 4.1vw, 1.1rem); }
+
+/* ================= Real carved temple doors (Canva) ================= */
+.door {
+  background: #5a0915;
+  box-shadow: inset 0 0 0 4px #b8862a, inset 0 0 50px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+.door::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/deco/door.webp') right center / auto 100% repeat-x;
+}
+.door-r::before { transform: scaleX(-1); }
+.door::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 3px rgba(231, 194, 98, 0.9), inset 0 0 60px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+}
+.door-l::after { background: linear-gradient(90deg, transparent 88%, rgba(0, 0, 0, 0.35)); }
+.door-r::after { background: linear-gradient(270deg, transparent 88%, rgba(0, 0, 0, 0.35)); }
+.knob { display: none; }
+.intro-inner { background: radial-gradient(ellipse at center, rgba(60, 4, 12, 0.94), rgba(60, 4, 12, 0.86) 70%, rgba(60, 4, 12, 0.75) 100%); }
+
+/* ================= Realistic door opening ================= */
+.intro-sub { font-style: normal; }
+.intro { perspective: 1600px; perspective-origin: 50% 45%; }
+.door {
+  transition: none;
+  will-change: transform, filter;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+/* edge thickness where the two doors meet */
+.door-l { box-shadow: inset -6px 0 0 #3a0610, inset -9px 0 0 #b8862a, inset 0 0 50px rgba(0, 0, 0, 0.45); }
+.door-r { box-shadow: inset 6px 0 0 #3a0610, inset 9px 0 0 #b8862a, inset 0 0 50px rgba(0, 0, 0, 0.45); }
+.intro.open .door-l { transform: none; animation: door-open-l 2.5s cubic-bezier(0.5, 0, 0.18, 1) forwards; }
+.intro.open .door-r { transform: none; animation: door-open-r 2.5s cubic-bezier(0.5, 0, 0.18, 1) 0.06s forwards; }
+@keyframes door-open-l {
+  0% { transform: rotateY(0); filter: brightness(1); }
+  10% { transform: rotateY(-3deg); filter: brightness(0.97); }   /* unlatch */
+  18% { transform: rotateY(-1.5deg); }                            /* settle */
+  100% { transform: rotateY(-108deg); filter: brightness(0.35); } /* swing into the dark */
+}
+@keyframes door-open-r {
+  0% { transform: rotateY(0); filter: brightness(1); }
+  10% { transform: rotateY(3deg); filter: brightness(0.97); }
+  18% { transform: rotateY(1.5deg); }
+  100% { transform: rotateY(108deg); filter: brightness(0.35); }
+}
+/* warm light spilling through the opening */
+.door-light {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(ellipse 40% 70% at 50% 50%, rgba(255, 236, 170, 0.95), rgba(255, 196, 90, 0.45) 45%, transparent 75%),
+    linear-gradient(90deg, transparent 30%, rgba(255, 228, 150, 0.5) 50%, transparent 70%);
+  transform: scaleX(0.04);
+}
+.door { z-index: 1; }
+.intro-inner { z-index: 2; }
+.intro.open .door-light { animation: door-light 2.5s ease-out forwards; }
+@keyframes door-light {
+  0%, 12% { opacity: 0; transform: scaleX(0.04); }
+  35% { opacity: 1; transform: scaleX(0.5); }
+  100% { opacity: 0; transform: scaleX(1.6); }
+}
+/* message panel fades first */
+.intro.open .intro-inner { transition: opacity 0.45s ease, transform 0.45s ease; opacity: 0; transform: scale(0.94) translateY(8px); }
+/* the page behind steps forward as the doors open */
+body.opened main { animation: step-in 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+@keyframes step-in { from { transform: scale(1.06); filter: brightness(0.75); } to { transform: none; filter: none; } }
+@media (prefers-reduced-motion: reduce) {
+  body.opened main { animation: none; }
+}
