@@ -1,0 +1,37 @@
+---
+import { Icon } from 'astro-icon/components';
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Awards from '../components/Awards.astro';
+import { site } from '../data/site';
+
+const page = site.pages['/awards'];
+const crumbs = [{ name: 'Awards', href: '/awards' }];
+const awardsLd = {
+  '@type': 'ItemList',
+  name: 'Awards won by Nadarajah Shanmugarajah and Loncey Tech',
+  itemListElement: site.awards.map((a, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: `${a.title} (${a.by}, ${a.year})`,
+    description: a.text,
+  })),
+};
+---
+
+<Layout title={page.title} description={page.description} image={page.image} crumbs={crumbs} pageType="CollectionPage" schema={[awardsLd]}>
+  <PageHeader eyebrow={page.eyebrow} title={page.heading} highlight={page.highlight} intro={page.intro} crumbs={crumbs} />
+  <Awards heading={false} />
+  <section class="section pt-0">
+    <div class="container-x reveal flex flex-wrap justify-center gap-4">
+      <a href="/story" class="btn-primary">
+        Read the story behind them
+        <Icon name="ph:arrow-right-bold" size={16} />
+      </a>
+      <a href="/work" class="btn-ghost">
+        <Icon name="ph:briefcase-bold" size={16} />
+        View selected work
+      </a>
+    </div>
+  </section>
+</Layout>

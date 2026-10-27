@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Contact from '../components/Contact.astro';
+import { site } from '../data/site';
+
+const page = site.pages['/contact'];
+const crumbs = [{ name: 'Contact', href: '/contact' }];
+---
+
+<Layout title={page.title} description={page.description} image={page.image} crumbs={crumbs} pageType="ContactPage">
+  <PageHeader eyebrow={page.eyebrow} title={page.heading} highlight={page.highlight} intro={page.intro} crumbs={crumbs} />
+  <Contact heading={false} />
+</Layout>

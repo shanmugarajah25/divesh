@@ -1,0 +1,9 @@
+---
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<div class={`divider ${cls}`} aria-hidden="true">
+  <span class="line"></span>
+  <svg viewBox="0 0 60 24" width="60" height="24"><path d="M30 2c4 6 9 9 16 10-7 1-12 4-16 10-4-6-9-9-16-10 7-1 12-4 16-10z" fill="url(#g-gold)" /><circle cx="6" cy="12" r="2.5" fill="url(#g-gold)" /><circle cx="54" cy="12" r="2.5" fill="url(#g-gold)" /></svg>
+  <span class="line"></span>
+</div>

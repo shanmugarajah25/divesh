@@ -1,0 +1,37 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="relative border-t border-line">
+  <div class="container-x flex flex-col items-center justify-between gap-6 py-10 md:flex-row">
+    <a href="#home" class="font-display text-2xl font-extrabold tracking-tight" aria-label="Home">
+      <span class="grad-text">{site.shortName}</span><span class="text-accent-500">.</span>
+    </a>
+
+    <ul class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+      {[...site.nav, { label: 'FAQ', href: '/faq' }].map((item) => (
+        <li>
+          <a href={item.href} class="text-sm text-muted transition-colors hover:text-brand-500">{item.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="flex items-center gap-2">
+      {site.socials.map((s) => (
+        <a href={s.href} target="_blank" rel="me noopener" class="icon-btn" aria-label={s.label}>
+          <Icon name={s.icon} size={18} />
+        </a>
+      ))}
+    </div>
+  </div>
+  <div class="border-t border-line">
+    <p class="container-x py-5 text-center text-xs text-muted">
+      © {year} {site.name} ·
+      <a href={site.company.url} target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-brand-500">
+        {site.company.name}
+      </a>. All rights reserved.
+    </p>
+  </div>
+</footer>

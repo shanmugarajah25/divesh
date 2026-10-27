@@ -1,0 +1,56 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  heading?: boolean;
+}
+const { heading = true } = Astro.props;
+---
+
+<section id="services" class="section">
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-linear-to-r from-transparent via-brand-500/40 to-transparent"></div>
+    <div class="absolute -left-40 top-1/2 size-[28rem] -translate-y-1/2 rounded-full bg-brand-500/10 blur-3xl blob"></div>
+  </div>
+
+  <div class="container-x">
+    {heading && (
+      <SectionHeading
+        eyebrow="Services"
+        title="What I"
+        highlight="do"
+        description={`Through ${site.company.name}, I help businesses and institutions harness digital transformation.`}
+      />
+    )}
+
+    <div class:list={['grid gap-6 sm:grid-cols-2 lg:grid-cols-3', heading ? 'mt-16' : 'mt-4']}>
+      {site.services.map((s, i) => (
+        <div class="reveal card card-hover group relative flex gap-4 overflow-hidden p-5 sm:block sm:p-7" data-reveal="scale" style={`--d:${(i % 3) * 100}ms`}>
+          <div
+            class="absolute -right-10 -top-10 size-32 rounded-full bg-linear-to-br from-brand-500/20 to-accent-500/20 blur-2xl transition-transform duration-700 group-hover:scale-150"
+            aria-hidden="true"
+          >
+          </div>
+          <span class="relative icon-tile size-11 shrink-0 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110 sm:size-12">
+            <Icon name={s.icon} size={24} />
+          </span>
+          <div class="min-w-0">
+            <h3 class="relative font-display text-base font-bold sm:mt-5 sm:text-lg">{s.title}</h3>
+            <p class="relative mt-1 text-sm leading-relaxed text-muted sm:mt-2">{s.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {heading && (
+      <div class="reveal mt-12 text-center" style="--d:200ms">
+        <a href="/services" class="btn-ghost">
+          Explore all services
+          <Icon name="ph:arrow-right-bold" size={16} />
+        </a>
+      </div>
+    )}
+  </div>
+</section>

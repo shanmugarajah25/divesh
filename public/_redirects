@@ -1,0 +1,2 @@
+# Many tools look for /sitemap.xml first; the sitemap integration writes /sitemap-index.xml
+/sitemap.xml /sitemap-index.xml 301

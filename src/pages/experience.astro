@@ -1,0 +1,27 @@
+---
+import { Icon } from 'astro-icon/components';
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Experience from '../components/Experience.astro';
+import { site } from '../data/site';
+
+const page = site.pages['/experience'];
+const crumbs = [{ name: 'Experience', href: '/experience' }];
+---
+
+<Layout title={page.title} description={page.description} image={page.image} crumbs={crumbs}>
+  <PageHeader eyebrow={page.eyebrow} title={page.heading} highlight={page.highlight} intro={page.intro} crumbs={crumbs} />
+  <Experience heading={false} />
+  <section class="section pt-0">
+    <div class="container-x reveal flex flex-wrap justify-center gap-4">
+      <a href="/work" class="btn-primary">
+        View selected work
+        <Icon name="ph:arrow-right-bold" size={16} />
+      </a>
+      <a href="/contact" class="btn-ghost">
+        <Icon name="ph:paper-plane-tilt-bold" size={16} />
+        Get in touch
+      </a>
+    </div>
+  </section>
+</Layout>

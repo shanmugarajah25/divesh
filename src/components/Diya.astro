@@ -1,0 +1,9 @@
+---
+// Real lit oil lamp (Canva photo) with a flickering glow over the flame
+interface Props { class?: string; delay?: string }
+const { class: cls = '', delay = '0s' } = Astro.props;
+---
+<span class={`diya ${cls}`} style={`--delay:${delay}`} aria-hidden="true">
+  <span class="diya-glow"></span>
+  <img src="/deco/lamp.webp" width="427" height="448" alt="" loading="lazy" decoding="async" />
+</span>

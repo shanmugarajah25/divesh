@@ -1,0 +1,106 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  heading?: boolean;
+}
+const { heading = true } = Astro.props;
+---
+
+<section id="contact" class="section">
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-linear-to-r from-transparent via-accent-500/40 to-transparent"></div>
+    <div class="absolute -right-40 bottom-0 size-[30rem] rounded-full bg-brand-500/15 blur-3xl blob"></div>
+  </div>
+
+  <div class="container-x">
+    {heading && (
+      <SectionHeading
+        eyebrow="Contact"
+        title="Let's build something"
+        highlight="together"
+        description="Have a project in mind or want to discuss how Loncey Tech can support your organisation? My inbox is always open."
+      />
+    )}
+
+    <div class:list={['grid gap-4 lg:grid-cols-2', heading ? 'mt-16' : 'mt-4']}>
+      <!-- Info -->
+      <div class="grid content-start gap-4 sm:grid-cols-2">
+        <a href={`mailto:${site.email}`} class="reveal card card-hover flex items-center gap-4 p-5">
+          <span class="icon-tile size-12">
+            <Icon name="ph:envelope-simple-bold" size={24} />
+          </span>
+          <div class="min-w-0">
+            <p class="text-xs font-semibold uppercase tracking-wider text-muted">Email</p>
+            <p class="truncate font-medium">{site.email}</p>
+          </div>
+        </a>
+        <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="reveal card card-hover flex items-center gap-4 p-5" style="--d:60ms">
+          <span class="icon-tile size-12">
+            <Icon name="ph:phone-bold" size={24} />
+          </span>
+          <div class="min-w-0">
+            <p class="text-xs font-semibold uppercase tracking-wider text-muted">Phone</p>
+            <p class="truncate font-medium">{site.phone}</p>
+          </div>
+        </a>
+        <div class="reveal card flex items-center gap-4 p-5" style="--d:120ms">
+          <span class="inline-flex size-12 shrink-0 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-500">
+            <Icon name="ph:check-circle-bold" size={24} />
+          </span>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-muted">Availability</p>
+            <p class="font-medium">{site.availability}</p>
+          </div>
+        </div>
+        <div class="reveal card flex items-center gap-4 p-5" style="--d:180ms">
+          <span class="inline-flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand-500/15 text-brand-500">
+            <Icon name="ph:map-pin-bold" size={24} />
+          </span>
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-muted">Location</p>
+            <p class="font-medium">{site.location}</p>
+          </div>
+        </div>
+
+        <div class="reveal flex items-center gap-3 pt-2 sm:col-span-2" style="--d:240ms">
+          {site.socials.map((s) => (
+            <a href={s.href} target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label={s.label}>
+              <Icon name={s.icon} size={20} />
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Company card -->
+      <a
+        href={site.company.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="reveal card card-hover relative block self-start overflow-hidden p-5 sm:p-6"
+        style="--d:240ms"
+      >
+        <div class="absolute -right-8 -top-8 size-28 rounded-full bg-linear-to-br from-brand-500/30 to-accent-500/30 blur-2xl" aria-hidden="true"></div>
+        <div class="relative flex items-center gap-4">
+          <span class="inline-flex size-12 shrink-0 items-center justify-center rounded-xl bg-surface-2 text-brand-500">
+            <Icon name="ph:buildings-bold" size={24} />
+          </span>
+          <div class="min-w-0">
+            <p class="text-xs font-semibold uppercase tracking-wider text-muted">Company</p>
+            <p class="font-display font-bold">{site.company.name}</p>
+            <p class="text-xs text-muted">{site.company.tagline}</p>
+          </div>
+          <Icon name="ph:arrow-up-right-bold" size={18} class="ml-auto text-muted" />
+        </div>
+        <dl class="relative mt-4 grid gap-1 border-t border-line pt-4 text-sm">
+          <div class="flex gap-2"><dt class="w-16 shrink-0 text-muted">Web</dt><dd class="font-medium">{site.company.url.replace('https://', '')}</dd></div>
+          <div class="flex gap-2"><dt class="w-16 shrink-0 text-muted">Email</dt><dd class="font-medium">{site.company.email}</dd></div>
+          <div class="flex gap-2"><dt class="w-16 shrink-0 text-muted">Phone</dt><dd class="font-medium">{site.company.phone}</dd></div>
+          <div class="flex gap-2"><dt class="w-16 shrink-0 text-muted">Address</dt><dd class="font-medium">{site.company.address}</dd></div>
+        </dl>
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,9 @@
+---
+// Real brass temple bell (Canva photo) swinging from the top of the page
+interface Props { class?: string; delay?: string; drop?: number }
+const { class: cls = '', delay = '0s', drop = 60 } = Astro.props;
+---
+<div class={`bell ${cls}`} style={`--delay:${delay};--drop:${drop}px`} aria-hidden="true">
+  <span class="bell-cord"></span>
+  <img src="/deco/bell.webp" width="204" height="501" alt="" loading="eager" decoding="async" />
+</div>

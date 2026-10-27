@@ -1,0 +1,49 @@
+---
+import { Icon } from 'astro-icon/components';
+interface Props {
+  eyebrow: string;
+  title: string;
+  highlight?: string;
+  intro?: string;
+  crumbs?: { name: string; href: string }[];
+}
+const { eyebrow, title, highlight, intro, crumbs = [] } = Astro.props;
+---
+
+<header class="page-header relative overflow-x-clip pb-6 pt-24 sm:pb-8 sm:pt-40">
+  <!-- decoration bleeds below the header so there is no visible seam with the next section -->
+  <div class="pointer-events-none absolute inset-x-0 -bottom-64 top-0 -z-10" aria-hidden="true">
+    <div class="bg-grid absolute inset-x-0 top-0 h-[120%]"></div>
+    <div class="absolute -left-40 -top-40 size-[30rem] rounded-full bg-brand-500/25 blur-3xl blob animate-blob"></div>
+    <div class="absolute -right-40 top-0 size-[26rem] rounded-full bg-accent-500/20 blur-3xl blob animate-blob [animation-delay:-7s]"></div>
+  </div>
+
+  <div class="container-x text-center">
+    {crumbs.length > 0 && (
+      <nav aria-label="Breadcrumb" class="mb-4 animate-fade-up sm:mb-6">
+        <ol class="inline-flex flex-wrap items-center justify-center gap-2 text-xs font-medium text-muted">
+          <li><a href="/" class="transition-colors hover:text-brand-500">Home</a></li>
+          {crumbs.map((c, i) => (
+            <li class="inline-flex items-center gap-2">
+              <Icon name="ph:caret-right-bold" size={12} class="opacity-60" />
+              {i === crumbs.length - 1 ? (
+                <span class="text-text" aria-current="page">{c.name}</span>
+              ) : (
+                <a href={c.href} class="transition-colors hover:text-brand-500">{c.name}</a>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
+    <span class="eyebrow animate-fade-up [animation-delay:50ms]">{eyebrow}</span>
+    <h1
+      class="mx-auto mt-4 max-w-3xl font-display text-[2rem] font-extrabold leading-[1.1] tracking-tight animate-fade-up [animation-delay:100ms] sm:mt-5 sm:text-5xl lg:text-6xl"
+    >
+      {title}{highlight && ' '}{highlight && <span class="grad-text">{highlight}</span>}
+    </h1>
+    {intro && (
+      <p class="mx-auto mt-4 max-w-2xl text-[15px] text-muted animate-fade-up [animation-delay:160ms] sm:mt-6 sm:text-lg">{intro}</p>
+    )}
+  </div>
+</header>

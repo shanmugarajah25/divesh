@@ -1,0 +1,25 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  highlight?: string;
+  description?: string;
+  align?: 'center' | 'left';
+}
+const { eyebrow, title, highlight, description, align = 'center' } = Astro.props;
+---
+
+<div class:list={['max-w-2xl', align === 'center' && 'mx-auto text-center']}>
+  <span class="eyebrow reveal">{eyebrow}</span>
+  <h2
+    class="reveal mt-4 font-display text-[1.75rem] font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl"
+    style="--d:80ms"
+  >
+    {title}{highlight && ' '}{highlight && <span class="grad-text">{highlight}</span>}
+  </h2>
+  {description && (
+    <p class="reveal mt-3 text-[15px] text-muted sm:mt-4 sm:text-lg" style="--d:160ms">
+      {description}
+    </p>
+  )}
+</div>

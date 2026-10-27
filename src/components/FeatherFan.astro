@@ -1,0 +1,11 @@
+---
+import Feather from './Feather.astro';
+interface Props { class?: string; count?: number; spread?: number }
+const { class: cls = '', count = 5, spread = 70 } = Astro.props;
+const step = count > 1 ? spread / (count - 1) : 0;
+---
+<div class={`fan ${cls}`} aria-hidden="true">
+  {Array.from({ length: count }).map((_, i) => (
+    <span class="fan-f" style={`--r:${-spread / 2 + i * step}deg;--i:${i}`}><Feather /></span>
+  ))}
+</div>

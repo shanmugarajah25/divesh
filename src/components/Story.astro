@@ -1,0 +1,103 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+
+const { story, company } = site;
+
+interface Props {
+  heading?: boolean;
+}
+const { heading = true } = Astro.props;
+---
+
+<section id="story" class="section overflow-hidden">
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-linear-to-r from-transparent via-brand-500/40 to-transparent"></div>
+    <div class="absolute -right-40 top-40 size-[30rem] rounded-full bg-accent-500/10 blur-3xl blob"></div>
+    <div class="absolute -left-40 bottom-20 size-[26rem] rounded-full bg-brand-500/10 blur-3xl blob"></div>
+  </div>
+
+  <div class="container-x">
+    {heading && (
+      <SectionHeading
+        eyebrow="The story"
+        title="From a seed to"
+        highlight="Loncey Tech"
+        description="How a passion for IT in Jaffna grew into an award-winning software company serving the world."
+      />
+    )}
+
+    <!-- Intro + name origin -->
+    <div class:list={['grid gap-8 lg:grid-cols-[3fr_2fr] lg:items-center', heading ? 'mt-16' : 'mt-4']}>
+      <div class="space-y-5 text-muted sm:text-lg">
+        {story.intro.map((p, i) => (
+          <p class="reveal leading-relaxed" style={`--d:${i * 100}ms`}>{p}</p>
+        ))}
+      </div>
+
+      <div class="reveal card relative overflow-hidden p-6 text-center sm:p-8" data-reveal="right" style="--d:200ms">
+        <div class="absolute -right-10 -top-10 size-40 rounded-full bg-linear-to-br from-brand-500/30 to-accent-500/30 blur-2xl" aria-hidden="true"></div>
+        <span class="eyebrow">{story.nameOrigin.title}</span>
+        <div class="mt-6 flex items-center justify-center gap-4 font-display text-2xl font-extrabold tracking-[0.2em] sm:text-3xl">
+          <span class="text-muted">{story.nameOrigin.from}</span>
+          <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-linear-to-r from-brand-500 to-accent-500 text-white shadow-lg shadow-brand-600/30 animate-float">
+            <Icon name="ph:arrows-left-right-bold" size={20} />
+          </span>
+          <span class="grad-text">{story.nameOrigin.to}</span>
+        </div>
+        <p class="mt-5 text-sm leading-relaxed text-muted">{story.nameOrigin.text}</p>
+        <p class="mt-4 font-display text-sm font-semibold uppercase tracking-widest text-brand-500">{company.tagline}</p>
+      </div>
+    </div>
+
+    <!-- Milestones -->
+    <div class="relative mt-20">
+      <div
+        class="absolute left-6 top-8 hidden h-px w-[calc(100%-3rem)] bg-linear-to-r from-transparent via-brand-500/50 to-transparent lg:block"
+        aria-hidden="true"
+      >
+      </div>
+      <ol class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {story.milestones.map((m, i) => (
+          <li class="reveal group relative" data-reveal="scale" style={`--d:${i * 120}ms`}>
+            <div class="relative mb-5 flex items-center gap-3">
+              <span class="relative z-10 inline-flex size-16 items-center justify-center rounded-2xl bg-linear-to-br from-brand-500 to-accent-500 text-white shadow-lg shadow-brand-600/30 ring-8 ring-bg transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-105">
+                <Icon name={m.icon} size={28} />
+              </span>
+              <span class="font-display text-3xl font-extrabold tracking-tight grad-text">{m.year}</span>
+            </div>
+            <div class="card card-hover h-[calc(100%-5.25rem)] p-6">
+              <h3 class="font-display text-lg font-bold">{m.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{m.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <!-- Impact -->
+    <div class="mt-20 grid gap-6 md:grid-cols-3">
+      {story.impact.map((it, i) => (
+        <div class="reveal card card-hover flex gap-4 p-6" style={`--d:${i * 100}ms`}>
+          <span class="inline-flex size-12 shrink-0 items-center justify-center rounded-xl bg-brand-500/15 text-brand-500">
+            <Icon name={it.icon} size={24} />
+          </span>
+          <div>
+            <h3 class="font-display font-bold">{it.title}</h3>
+            <p class="mt-1 text-sm leading-relaxed text-muted">{it.text}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Mission quote -->
+    <figure class="reveal relative mx-auto mt-20 max-w-3xl text-center" style="--d:100ms">
+      <Icon name="ph:quotes-fill" size={48} class="text-brand-500/40" />
+      <blockquote class="mt-2 font-display text-2xl font-bold leading-snug tracking-tight sm:text-3xl">
+        Our mission: <span class="grad-text">{company.mission}</span>
+      </blockquote>
+      <figcaption class="mt-6 text-sm leading-relaxed text-muted">{story.closing}</figcaption>
+    </figure>
+  </div>
+</section>

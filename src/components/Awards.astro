@@ -1,0 +1,131 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import { site } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+import awardPhoto from '../assets/award.png';
+
+interface Props {
+  heading?: boolean;
+}
+const { heading = true } = Astro.props;
+
+const [featured, ...others] = site.awards;
+const years = site.awards.map((a) => Number(a.year)).filter(Boolean);
+const span = `${Math.min(...years)} – ${Math.max(...years)}`;
+const orgs = new Set(site.awards.map((a) => a.by.split(' · ').pop())).size;
+const details = 'details' in featured ? featured.details : [];
+---
+
+<section id="awards" class="section overflow-x-clip">
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-linear-to-r from-transparent via-accent-500/40 to-transparent"></div>
+    <div class="blob absolute -left-40 top-1/3 size-[26rem] rounded-full bg-amber-500/10 blur-3xl"></div>
+    <div class="blob absolute -right-40 bottom-0 size-[26rem] rounded-full bg-brand-500/10 blur-3xl"></div>
+  </div>
+
+  <div class="container-x">
+    {heading && (
+      <SectionHeading
+        eyebrow="Recognition"
+        title="Awards &"
+        highlight="achievements"
+        description="Recognition for innovation, entrepreneurship and impact in the technology sector."
+      />
+    )}
+
+    <!-- Featured award -->
+    <article
+      class:list={['reveal card relative overflow-hidden !p-0', heading ? 'mt-14' : 'mt-4']}
+      data-reveal="scale"
+    >
+      <div class="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full bg-linear-to-br from-amber-400/25 to-accent-500/20 blur-3xl" aria-hidden="true"></div>
+      <div class="grid lg:grid-cols-[2fr_3fr]">
+        <!-- photo, shown in full -->
+        <figure class="relative bg-linear-to-b from-surface-2 to-surface p-4 sm:p-6 lg:p-8">
+          <div class="relative mx-auto max-w-sm overflow-hidden rounded-2xl ring-1 ring-line lg:max-w-none">
+            <Image
+              src={awardPhoto}
+              alt={`${site.name} holding the ${featured.by} trophy and certificate, ${featured.year}`}
+              width={720}
+              densities={[1, 2]}
+              class="aspect-[2/3] w-full object-cover"
+            />
+          </div>
+          <figcaption class="mt-4 flex items-center justify-center gap-2 text-xs font-medium text-muted lg:justify-start">
+            <Icon name="ph:camera-bold" size={14} />
+            {featured.by}, {featured.year}
+          </figcaption>
+        </figure>
+
+        <!-- details -->
+        <div class="flex flex-col justify-center border-t border-line p-6 sm:p-8 lg:border-l lg:border-t-0 lg:p-10">
+          <span class="eyebrow w-fit">
+            <Icon name="ph:star-fill" size={12} />
+            Featured recognition
+          </span>
+          <h3 class="mt-4 font-display text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl">{featured.title}</h3>
+          <p class="mt-1.5 text-sm font-semibold text-brand-500">{featured.by} · {featured.year}</p>
+          <p class="mt-4 text-[15px] leading-relaxed text-muted sm:text-base">{featured.text}</p>
+
+          {details.length > 0 && (
+            <dl class="mt-6 grid gap-x-6 gap-y-3 sm:grid-cols-2">
+              {details.map((d) => (
+                <div class="rounded-xl border border-line bg-surface-2/60 px-4 py-3">
+                  <dt class="text-[11px] font-semibold uppercase tracking-wider text-muted">{d.label}</dt>
+                  <dd class="mt-0.5 text-sm font-semibold">{d.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+
+          <!-- summary strip -->
+          <div class="mt-6 grid grid-cols-3 divide-x divide-line overflow-hidden rounded-2xl border border-line bg-surface/70">
+            <div class="px-2 py-3 text-center sm:py-4">
+              <p class="font-display text-xl font-extrabold sm:text-2xl"><span class="grad-text" data-count={site.awards.length}>0</span></p>
+              <p class="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted sm:text-[11px]">Awards won</p>
+            </div>
+            <div class="px-2 py-3 text-center sm:py-4">
+              <p class="font-display text-xl font-extrabold sm:text-2xl"><span class="grad-text" data-count={orgs}>0</span></p>
+              <p class="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted sm:text-[11px]">Organisations</p>
+            </div>
+            <div class="px-2 py-3 text-center sm:py-4">
+              <p class="font-display text-lg font-extrabold sm:text-2xl"><span class="grad-text">{span}</span></p>
+              <p class="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted sm:text-[11px]">Years</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Other awards -->
+    <ul class="mt-6 grid gap-5 md:grid-cols-3">
+      {others.map((a, i) => (
+        <li class="reveal card card-hover group relative overflow-hidden p-6" data-reveal="scale" style={`--d:${i * 100}ms`}>
+          <span
+            class="pointer-events-none absolute -right-2 -top-3 select-none font-display text-[5rem] font-extrabold leading-none text-text/[0.04] transition-colors duration-500 group-hover:text-brand-500/10"
+            aria-hidden="true"
+          >
+            {a.year}
+          </span>
+          <div class="relative">
+            <span class="inline-flex size-12 items-center justify-center rounded-2xl bg-linear-to-br from-amber-400 via-orange-400 to-accent-500 text-white shadow-lg shadow-orange-500/30 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
+              <Icon name={a.icon} size={24} />
+            </span>
+            <div class="mt-4 flex flex-wrap items-center gap-2">
+              <span class="eyebrow !py-0.5">{a.year}</span>
+            </div>
+            <h3 class="mt-2 font-display text-lg font-bold leading-snug">{a.title}</h3>
+            <p class="mt-1 text-xs font-medium text-muted">{a.by}</p>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{a.text}</p>
+          </div>
+          <div
+            class="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-linear-to-r from-amber-400 via-orange-400 to-accent-500 transition-transform duration-500 group-hover:scale-x-100"
+            aria-hidden="true"
+          >
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,57 @@
+---
+import '../styles/invite.css';
+import { event } from '../data/event';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${event.babyTa} தொட்டில் விழா | ${event.babyEn}`,
+  description = `எமது செல்வப் புதல்வன் ${event.babyTa} இன் தொட்டில் விழா. ${event.dateText} (${event.dayTa}) காலை ${event.timeText}, கொழும்புத்துறை, யாழ்ப்பாணம்.`,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL(event.siteUrl);
+const canonical = new URL(Astro.url.pathname, siteUrl).href.replace(/\/$/, '');
+const ogImage = new URL('/og.jpg', siteUrl).href;
+---
+
+<!doctype html>
+<html lang="ta">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#6e0c1c" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={`${event.babyTa} தொட்டில் விழா`} />
+    <meta property="og:description" content={`${event.dateText} (${event.dayTa}) · காலை ${event.timeText} · கொழும்புத்துறை, யாழ்ப்பாணம்`} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="ta_LK" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Catamaran:wght@400;500;600;700;800;900&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,97 @@
+---
+import { Icon } from 'astro-icon/components';
+import { site } from '../data/site';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props {
+  heading?: boolean;
+}
+const { heading = true } = Astro.props;
+---
+
+<section id="projects" class="section">
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="absolute -left-40 top-1/3 size-[30rem] rounded-full bg-accent-500/10 blur-3xl blob"></div>
+  </div>
+
+  <div class="container-x">
+    {heading && (
+      <SectionHeading
+        eyebrow="Selected work"
+        title="Trusted by"
+        highlight="institutions"
+        description="A selection of digital solutions delivered for government bodies and organisations across the Northern Province of Sri Lanka."
+      />
+    )}
+
+    <div class:list={['grid gap-6 md:grid-cols-2 lg:grid-cols-3', heading ? 'mt-16' : 'mt-4']}>
+      {site.projects.map((p, i) => (
+        <article class="reveal card card-hover group flex flex-col overflow-hidden" data-reveal="scale" style={`--d:${(i % 3) * 100}ms`}>
+          <div class:list={['relative h-40 overflow-hidden bg-linear-to-br', p.gradient]}>
+            <div class="bg-grid absolute inset-0 opacity-40" aria-hidden="true"></div>
+            <div
+              class="absolute -right-6 -top-6 size-32 rounded-full bg-white/20 blur-2xl transition-transform duration-700 group-hover:scale-150"
+              aria-hidden="true"
+            >
+            </div>
+            <Icon
+              name={p.icon}
+              size={60}
+              class="absolute left-6 top-1/2 -translate-y-1/2 text-white drop-shadow-lg transition-transform duration-500 group-hover:-translate-y-[60%] group-hover:scale-110" />
+            {p.featured && (
+              <span class="absolute right-4 top-4 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                Featured
+              </span>
+            )}
+            <span class="absolute bottom-4 left-6 rounded-full bg-black/25 px-3 py-1 text-xs font-medium text-white backdrop-blur">
+              {p.client}
+            </span>
+            {(p.links.live || p.links.code) && (
+              <div class="absolute bottom-4 right-4 flex translate-y-2 gap-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                {p.links.code && (
+                  <a
+                    href={p.links.code}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex size-9 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition hover:bg-white/40"
+                    aria-label={`${p.title} source code`}
+                  >
+                    <Icon name="mdi:github" size={18} />
+                  </a>
+                )}
+                {p.links.live && (
+                  <a
+                    href={p.links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex size-9 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur transition hover:bg-white/40"
+                    aria-label={`${p.title} live site`}
+                  >
+                    <Icon name="ph:arrow-up-right-bold" size={18} />
+                  </a>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div class="flex flex-1 flex-col p-6">
+            <h3 class="font-display text-lg font-bold transition-colors group-hover:text-brand-500">{p.title}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-muted">{p.description}</p>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {p.tags.map((t) => (
+                <li class="rounded-full border border-line bg-surface-2/70 px-2.5 py-1 text-xs font-medium text-muted">{t}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="reveal mt-12 text-center" style="--d:200ms">
+      <a href={site.company.url} target="_blank" rel="noopener noreferrer" class="btn-ghost">
+        <Icon name="ph:globe-bold" size={18} />
+        Explore Loncey Tech
+      </a>
+    </div>
+  </div>
+</section>

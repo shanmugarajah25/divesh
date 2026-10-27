@@ -1,0 +1,27 @@
+---
+import { Icon } from 'astro-icon/components';
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Story from '../components/Story.astro';
+import { site } from '../data/site';
+
+const page = site.pages['/story'];
+const crumbs = [{ name: 'Story', href: '/story' }];
+---
+
+<Layout title={page.title} description={page.description} image={page.image} crumbs={crumbs} pageType="AboutPage">
+  <PageHeader eyebrow={page.eyebrow} title={page.heading} highlight={page.highlight} intro={page.intro} crumbs={crumbs} />
+  <Story heading={false} />
+  <section class="section pt-0">
+    <div class="container-x reveal flex flex-wrap justify-center gap-4">
+      <a href="/awards" class="btn-primary">
+        See our awards
+        <Icon name="ph:trophy-bold" size={16} />
+      </a>
+      <a href="/services" class="btn-ghost">
+        <Icon name="ph:squares-four-bold" size={16} />
+        Explore services
+      </a>
+    </div>
+  </section>
+</Layout>

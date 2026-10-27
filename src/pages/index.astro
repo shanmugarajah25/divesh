@@ -1,0 +1,228 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Defs from '../components/Defs.astro';
+import Bell from '../components/Bell.astro';
+import Feather from '../components/Feather.astro';
+import Vel from '../components/Vel.astro';
+import Diya from '../components/Diya.astro';
+import Divider from '../components/Divider.astro';
+import Mandala from '../components/Mandala.astro';
+import FeatherFan from '../components/FeatherFan.astro';
+import baby from '../assets/baby-murugan.jpg';
+import muruganVel from '../assets/murugan-vel.png';
+import muruganCradle from '../assets/murugan-cradle.png';
+import muruganPeacock from '../assets/murugan-peacock.png';
+import qrSvg from '../assets/location-qr.svg?raw';
+import { event, calendar } from '../data/event';
+
+const shareText = `முருகப்பெருமானின் திருவருளால் எமது செல்வப் புதல்வனின் தொட்டில் விழாவிற்கு அன்புடன் அழைக்கின்றோம்.\n${event.dateText} (${event.dayTa}) காலை ${event.timeText}\n${event.siteUrl}`;
+const whatsapp = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(calendar.ics)}`;
+---
+
+<Layout>
+  <Defs />
+  <canvas id="petals" aria-hidden="true"></canvas>
+
+  <!-- Opening: temple doors -->
+  <div id="intro" class="intro" role="dialog" aria-label="Invitation">
+    <div class="door door-l" aria-hidden="true"><span class="knob"></span></div>
+    <div class="door door-r" aria-hidden="true"><span class="knob"></span></div>
+    <div class="intro-inner">
+      <div class="intro-baby">
+        <Mandala class="intro-mandala" />
+        <Image src={muruganVel} alt="" widths={[220, 360]} sizes="180px" loading="eager" class="bounce" />
+      </div>
+      <p class="om"><Vel class="om-vel" /> ஓம் சரவணபவ <Vel class="om-vel" /></p>
+      <p class="intro-sub">அன்புடன் அழைக்கின்றோம்</p>
+      <h1 class="intro-title"><small>எமது செல்வப் புதல்வனின்</small><br />தொட்டில் விழா</h1>
+      <button id="open-invite" class="btn btn-gold" type="button">
+        அழைப்பிதழைத் திறக்க
+      </button>
+    </div>
+  </div>
+
+  <div class="flyby" aria-hidden="true">
+    <Image src={muruganPeacock} alt="" widths={[260, 420]} sizes="200px" loading="eager" />
+  </div>
+
+  <main id="invite">
+    <!-- Hanging bells and toran -->
+    <div class="toran" aria-hidden="true"></div>
+    <Bell class="bell-1" delay="0s" drop={40} />
+    <Bell class="bell-2" delay=".6s" drop={80} />
+    <Bell class="bell-3" delay=".3s" drop={56} />
+    <Bell class="bell-4" delay=".9s" drop={32} />
+
+    <section class="hero">
+      <div class="art reveal">
+        <div class="halo" aria-hidden="true"></div>
+        <Mandala class="hero-mandala" />
+        <div class="arch">
+          <div class="swing">
+            <Image src={baby} alt="Baby Murugan on a flower-decked golden cradle" widths={[400, 640, 900]} sizes="(max-width: 860px) 86vw, 440px" loading="eager" fetchpriority="high" />
+          </div>
+          <div class="sparkles" aria-hidden="true">
+            {Array.from({ length: 10 }).map((_, i) => <i style={`--i:${i}`}></i>)}
+          </div>
+        </div>
+        <Feather class="feather-art" />
+        <div class="diyas" aria-hidden="true">
+          <Diya delay="0s" /><Diya delay=".4s" /><Diya delay=".8s" />
+        </div>
+      </div>
+
+      <div class="words">
+        <Vel class="vel-watermark" />
+        <FeatherFan class="fan-top reveal" count={5} spread={80} />
+        <p class="blessing reveal">முருகப்பெருமானின் திருவருளால்</p>
+        <p class="lead reveal">எமது செல்வப் புதல்வனின்</p>
+        <div class="plaque reveal">
+          <span class="plaque-ta">தொட்டில் விழா</span>
+        </div>
+                <p class="home reveal">எமது இல்லத்தில் நடைபெறவுள்ளது</p>
+        <Divider class="reveal" />
+        <p class="invite-text reveal">
+          இந்நன்னாளில் தாங்கள் குடும்ப சகிதம் வருகை தந்து, எமது செல்வனை ஆசீர்வதிக்குமாறு அன்புடன் அழைக்கின்றோம்.
+        </p>
+      </div>
+    </section>
+
+    <section class="blessings" aria-labelledby="arul">
+      <h2 id="arul" class="section-title reveal"><span>முருகன் அருள்</span></h2>
+      <div class="trio">
+        <figure class="murti m-vel reveal">
+          <div class="stage">
+            <Mandala class="stage-mandala" />
+            <div class="glow-vel" aria-hidden="true"></div>
+            <Image src={muruganVel} alt="Baby Murugan holding his golden Vel" widths={[260, 420]} sizes="(max-width: 860px) 60vw, 240px" class="pic" />
+          </div>
+          <figcaption>வெற்றிவேல் முருகா</figcaption>
+        </figure>
+        <figure class="murti m-cradle reveal">
+          <div class="stage">
+            <Mandala class="stage-mandala" />
+            <div class="lullaby" aria-hidden="true">
+              <span style="--i:0">ஆராரோ</span><span style="--i:1">♪</span><span style="--i:2">ஆரிரரோ</span><span style="--i:3">♫</span><span style="--i:4">ஆராரோ</span>
+            </div>
+            <div class="rock">
+              <Image src={muruganCradle} alt="Baby Murugan sleeping in a flower-decked golden cradle" widths={[280, 460]} sizes="(max-width: 860px) 64vw, 270px" class="pic" />
+            </div>
+          </div>
+          <figcaption>ஆராரோ ஆரிரரோ</figcaption>
+        </figure>
+        <figure class="murti m-peacock reveal">
+          <div class="stage">
+            <Mandala class="stage-mandala" />
+            <div class="fly">
+              <Image src={muruganPeacock} alt="Baby Murugan riding his peacock" widths={[280, 460]} sizes="(max-width: 860px) 64vw, 270px" class="pic" />
+            </div>
+          </div>
+          <figcaption>மயில் வாகனா</figcaption>
+        </figure>
+      </div>
+      <div class="quote reveal">
+        <Vel class="q-vel" />
+        <p>யாமிருக்க பயமேன்</p>
+      </div>
+    </section>
+
+    <section class="details" aria-labelledby="when">
+      <h2 id="when" class="section-title reveal"><span>விழா விபரம்</span></h2>
+      <div class="cards">
+        <article class="card reveal">
+          <div class="ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2.5" /><path d="M3 10h18M8 3v4M16 3v4" /><circle cx="8" cy="14.5" r="1" /><circle cx="12" cy="14.5" r="1" /><circle cx="16" cy="14.5" r="1" /></svg>
+          </div>
+          <p class="k">நாள்</p>
+          <p class="v">{event.dateText}</p>
+          <p class="s">{event.dayTa}</p>
+        </article>
+        <article class="card reveal">
+          <div class="ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3.5 2" /></svg>
+          </div>
+          <p class="k">நேரம்</p>
+          <p class="v">{event.timeText}</p>
+          <p class="s">காலை 10 மணி</p>
+        </article>
+        <article class="card reveal">
+          <div class="ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5" /><path d="M5.5 10v10h13V10" /><path d="M10 20v-5.5h4V20" /></svg>
+          </div>
+          <p class="k">இடம்</p>
+          <p class="v v-sm">{event.address}</p>
+          <p class="s">இல. 20, 2ஆம் குறுக்குத் தெரு,<br />கொழும்புத்துறை, யாழ்ப்பாணம்.</p>
+        </article>
+      </div>
+
+      <div class="countdown reveal" id="countdown" data-start={event.startISO} aria-live="polite">
+        <p class="cd-label">விழாவிற்கு இன்னும்</p>
+        <div class="cd-grid">
+          <div><b data-u="d">--</b><span>நாட்கள்</span></div>
+          <div><b data-u="h">--</b><span>மணி</span></div>
+          <div><b data-u="m">--</b><span>நிமிடங்கள்</span></div>
+          <div><b data-u="s">--</b><span>வினாடிகள்</span></div>
+        </div>
+        <p class="cd-done" hidden>இன்று விழா நாள்! வருக, வருக!</p>
+      </div>
+
+      <div class="actions reveal">
+        <a class="btn btn-maroon" href={calendar.google} target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5" /><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5" /></svg>
+          Google நாட்காட்டி
+        </a>
+        <a class="btn btn-outline" href={icsHref} download="divesh-thottil-vizha.ics">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>
+          iPhone நாட்காட்டி
+        </a>
+        <a class="btn btn-green" href={whatsapp} target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.6 19z" /><path d="M9 9.5c.3 2.5 2.5 4.8 5.2 5.4l1.3-1.3-2-1-1 .9c-1-.5-1.9-1.4-2.4-2.4l.9-1-1-2z" /></svg>
+          பகிர்க
+        </a>
+      </div>
+    </section>
+
+    <section class="location" aria-labelledby="where">
+      <h2 id="where" class="section-title reveal"><span>வழிகாட்டி</span></h2>
+      <div class="loc-grid">
+        <div class="qr-card reveal">
+          <p class="pill">இருப்பிடம்</p>
+          <a class="qr" href={event.mapUrl} target="_blank" rel="noopener" aria-label="Open location in Google Maps">
+            <Fragment set:html={qrSvg} />
+            <span class="pin" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 22s7-6.4 7-12a7 7 0 1 0-14 0c0 5.6 7 12 7 12z" fill="#c8102e" /><circle cx="12" cy="10" r="2.6" fill="#fff" /></svg>
+            </span>
+          </a>
+          <p class="pill">ஸ்கேன் செய்யுங்கள்</p>
+          <a class="btn btn-maroon btn-block" href={event.mapUrl} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.4 7-12a7 7 0 1 0-14 0c0 5.6 7 12 7 12z" /><circle cx="12" cy="10" r="2.6" /></svg>
+            வழியைப் பார்க்க
+          </a>
+        </div>
+        <div class="map reveal">
+          <iframe
+            title="Map: No. 20, 2nd Cross Street, Columbuthurai, Jaffna"
+            data-src={event.mapEmbed}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <Divider />
+      <p class="foot-ta reveal">தங்கள் வருகையை அன்புடன் எதிர்பார்க்கும்</p>
+      <p class="hosts reveal">{event.hostsTa}</p>
+      <div class="foot-art" aria-hidden="true">
+        <FeatherFan class="fan-foot reveal" count={7} spread={110} />
+        <Vel class="foot-vel" />
+      </div>
+      <p class="vetrivel">வெற்றிவேல் முருகனுக்கு அரோகரா!</p>
+      <p class="tap-hint">திரையைத் தொட்டு மலர் தூவுங்கள்</p>
+    </footer>
+  </main>
+
+  <script src="../scripts/invite.ts"></script>
+</Layout>

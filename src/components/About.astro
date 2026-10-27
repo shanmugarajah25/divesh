@@ -1,0 +1,124 @@
+---
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import { site } from '../data/site';
+import photo from '../assets/shan.png';
+
+interface Props {
+  /** Show "More about me" links (used on the home page). */
+  showMore?: boolean;
+}
+const { showMore = false } = Astro.props;
+---
+
+<section id="about" class="section overflow-x-clip">
+  <div class="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+    <div class="blob absolute -left-40 top-1/4 size-[28rem] rounded-full bg-brand-500/10 blur-3xl"></div>
+  </div>
+
+  <div class="container-x grid gap-12 lg:grid-cols-[5fr_7fr] lg:items-start lg:gap-16">
+    <!-- Portrait + stats -->
+    <div class="mx-auto w-full max-w-sm lg:sticky lg:top-28 lg:max-w-none">
+      <div class="reveal relative pt-10" data-reveal="left">
+        <div
+          class="absolute inset-x-6 bottom-0 top-1/3 rounded-[3rem] bg-linear-to-tr from-brand-600 via-brand-400 to-accent-500 opacity-40 blur-3xl dark:opacity-50"
+          aria-hidden="true"
+        >
+        </div>
+        <div class="relative aspect-[4/5]">
+          <!-- gradient card the portrait stands in front of -->
+          <div
+            class="absolute inset-x-0 bottom-0 top-[14%] overflow-hidden rounded-[2.5rem] bg-linear-to-br from-brand-600 via-brand-500 to-accent-500 bg-[length:200%_200%] shadow-2xl shadow-brand-600/40 animate-gradient-x"
+            aria-hidden="true"
+          >
+            <div class="absolute inset-0 opacity-[0.12] [background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:28px_28px]"></div>
+            <div class="absolute -right-16 -top-16 size-56 rounded-full bg-white/25 blur-3xl"></div>
+            <div class="absolute -bottom-20 -left-16 size-56 rounded-full bg-black/20 blur-3xl"></div>
+          </div>
+          <!-- portrait pops above the card, clipped to the card's rounded base -->
+          <div class="absolute inset-x-0 -top-[8%] bottom-0 overflow-hidden rounded-b-[2.5rem]">
+            <Image
+              src={photo}
+              alt={`${site.name} smiling`}
+              width={640}
+              densities={[1, 2]}
+              class="absolute bottom-0 left-1/2 w-[92%] max-w-none -translate-x-1/2 object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.45)]"
+            />
+          </div>
+          <!-- name plate -->
+          <div class="absolute inset-x-4 bottom-4 flex items-center justify-between rounded-2xl bg-black/35 px-4 py-3 text-white backdrop-blur-md sm:inset-x-5 sm:bottom-5">
+            <div class="min-w-0">
+              <p class="truncate font-display text-sm font-bold sm:text-base">{site.name}</p>
+              <p class="truncate text-xs text-white/75">{site.role}</p>
+            </div>
+            <span class="inline-flex size-9 shrink-0 items-center justify-center rounded-xl bg-white/15">
+              <Icon name="ph:sparkle-bold" size={18} />
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- stats -->
+      <ul class="stagger mt-6 grid grid-cols-2 gap-3">
+        {site.stats.map((s) => (
+          <li class="reveal card card-hover px-4 py-4 text-center" data-reveal="scale">
+            <p class="font-display text-3xl font-extrabold tracking-tight">
+              <span class="grad-text" data-count={s.value}>0</span><span class="grad-text">{s.suffix}</span>
+            </p>
+            <p class="mt-1 text-[11px] font-semibold uppercase tracking-wider text-muted">{s.label}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Copy -->
+    <div>
+      <span class="eyebrow reveal">About me</span>
+      <h2 class="reveal mt-4 font-display text-[1.75rem] font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl" style="--d:80ms">
+        Building technology that <span class="grad-text">lights the way forward</span>
+      </h2>
+      <div class="mt-5 space-y-3 text-[15px] text-muted sm:mt-6 sm:space-y-4 sm:text-lg">
+        {site.bio.map((p, i) => (
+          <p class="reveal leading-relaxed" style={`--d:${160 + i * 80}ms`}>{p}</p>
+        ))}
+      </div>
+
+      <ul class="stagger mt-8 grid gap-3 sm:grid-cols-2">
+        {site.highlights.map((h) => (
+          <li class="reveal card card-hover group flex items-start gap-4 p-4" data-reveal="scale">
+            <span class="icon-tile size-11 rounded-xl transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
+              <Icon name={h.icon} size={22} />
+            </span>
+            <div class="min-w-0">
+              <p class="font-display font-semibold">{h.title}</p>
+              <p class="mt-0.5 text-sm text-muted">{h.text}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div class="reveal mt-6 flex flex-wrap items-center gap-2" style="--d:400ms">
+        <span class="mr-1 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-muted">
+          <Icon name="ph:translate-bold" size={16} />
+          Languages
+        </span>
+        {site.languages.map((l) => (
+          <span class="chip !py-1 text-xs">{l}</span>
+        ))}
+      </div>
+
+      {showMore && (
+        <div class="reveal mt-8 flex flex-wrap gap-3" style="--d:440ms">
+          <a href="/about" class="btn-primary">
+            More about me
+            <Icon name="ph:arrow-right-bold" size={16} />
+          </a>
+          <a href="/story" class="btn-ghost">
+            <Icon name="ph:book-open-bold" size={16} />
+            Read the story
+          </a>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+---
+import { Icon } from 'astro-icon/components';
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import About from '../components/About.astro';
+import Skills from '../components/Skills.astro';
+import { site } from '../data/site';
+
+const page = site.pages['/about'];
+const crumbs = [{ name: 'About', href: '/about' }];
+---
+
+<Layout title={page.title} description={page.description} image={page.image} crumbs={crumbs} pageType="ProfilePage" ogType="profile">
+  <PageHeader eyebrow={page.eyebrow} title={page.heading} highlight={page.highlight} intro={page.intro} crumbs={crumbs} />
+  <About />
+  <Skills />
+  <section class="section pt-0">
+    <div class="container-x reveal flex flex-wrap justify-center gap-4">
+      <a href="/story" class="btn-primary">
+        Read the Loncey Tech story
+        <Icon name="ph:arrow-right-bold" size={16} />
+      </a>
+      <a href="/experience" class="btn-ghost">
+        <Icon name="ph:briefcase-bold" size={16} />
+        See my experience
+      </a>
+    </div>
+  </section>
+</Layout>

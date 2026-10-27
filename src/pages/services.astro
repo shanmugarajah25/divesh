@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Services from '../components/Services.astro';
+import Skills from '../components/Skills.astro';
+import Contact from '../components/Contact.astro';
+import Faq from '../components/Faq.astro';
+import { site } from '../data/site';
+
+const page = site.pages['/services'];
+const crumbs = [{ name: 'Services', href: '/services' }];
+const servicesLd = {
+  '@type': 'OfferCatalog',
+  name: 'Services by Loncey Tech',
+  itemListElement: site.services.map((s, i) => ({
+    '@type': 'Offer',
+    position: i + 1,
+    itemOffered: {
+      '@type': 'Service',
+      name: s.title,
+      description: s.text,
+      provider: { '@id': `${Astro.site}#organization` },
+      areaServed: 'Worldwide',
+    },
+  })),
+};
+---
+
+<Layout title={page.title} description={page.description} image={page.image} crumbs={crumbs} faqs={site.faqs} schema={[servicesLd]}>
+  <PageHeader eyebrow={page.eyebrow} title={page.heading} highlight={page.highlight} intro={page.intro} crumbs={crumbs} />
+  <Services heading={false} />
+  <Skills />
+  <Faq />
+  <Contact />
+</Layout>
