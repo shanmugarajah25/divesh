@@ -192,22 +192,29 @@ if (detailsBtn && detailsSec) {
 }
 
 /* ---------- Keep host name lines on one line on every phone ---------- */
+const fitEls = Array.from(document.querySelectorAll<HTMLElement>('.hosts, .foot-ta, .blessing, .lead, .home'));
 function fitOneLine() {
-  document.querySelectorAll<HTMLElement>('.hosts, .foot-ta, .blessing, .lead, .home').forEach((el) => {
+  fitEls.forEach((el) => {
     el.style.fontSize = '';
-    let size = parseFloat(getComputedStyle(el).fontSize);
-    const box = el.parentElement!.clientWidth - 8;
-    let guard = 40;
-    while (el.scrollWidth > box && size > 10 && guard--) {
-      size -= 0.5;
-      el.style.fontSize = size + 'px';
+    const avail = el.clientWidth - 4;
+    if (avail <= 0) return;
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const textW = range.getBoundingClientRect().width;
+    if (textW > avail) {
+      const size = parseFloat(getComputedStyle(el).fontSize);
+      el.style.fontSize = Math.max(10, Math.floor(size * (avail / textW) * 10) / 10) + 'px';
     }
   });
 }
 fitOneLine();
 document.fonts?.ready.then(fitOneLine);
-window.addEventListener('resize', fitOneLine);
+document.fonts?.addEventListener?.('loadingdone', fitOneLine);
 window.addEventListener('load', fitOneLine);
+window.addEventListener('resize', fitOneLine);
+[300, 1000, 2500, 5000].forEach((ms) => setTimeout(fitOneLine, ms));
+new IntersectionObserver((entries) => { if (entries.some((e) => e.isIntersecting)) fitOneLine(); }).observe(document.querySelector('.foot') ?? document.body);
+if ('ResizeObserver' in window) new ResizeObserver(() => fitOneLine()).observe(document.body);
 
 /* ---------- "Scroll for more" hint after the doors open ---------- */
 const hint = document.querySelector<HTMLButtonElement>('.scroll-hint');

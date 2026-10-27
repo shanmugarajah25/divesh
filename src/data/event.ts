@@ -6,7 +6,7 @@ const mapQuery = 'No. 20, 2nd Cross Street, Columbuthurai, Jaffna, Sri Lanka';
 export const event = {
   babyEn: 'Divesh',
   babyTa: 'திவேஷ்',
-  hostsTa: 'திரு. திருமதி. சண்முகராஜா குடும்பத்தினர்',
+  hostsTa: 'சண்முகராஜா & சதீஸ்சனா',
   hostsEn: 'The Shanmugarajah Family',
 
   // Ceremony start, Sri Lanka time (UTC+05:30)
