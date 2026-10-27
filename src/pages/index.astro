@@ -104,7 +104,7 @@ const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(calendar.
         </article>
       </div>
 
-      <div class="countdown reveal" id="countdown" data-start={event.startISO} aria-live="polite">
+      <div class="countdown reveal" id="countdown" data-start={event.startISO} data-end={event.endISO} aria-live="polite">
         <p class="cd-label">விழாவிற்கு இன்னும்</p>
         <div class="cd-grid">
           <div><b data-u="d">--</b><span>நாட்கள்</span></div>
@@ -112,7 +112,8 @@ const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(calendar.
           <div><b data-u="m">--</b><span>நிமிடங்கள்</span></div>
           <div><b data-u="s">--</b><span>வினாடிகள்</span></div>
         </div>
-        <p class="cd-done" hidden>இன்று விழா நாள்! வருக, வருக!</p>
+        <p class="cd-done cd-live" hidden>விழா தற்போது நடைபெறுகிறது<small>வருக, வருக!</small></p>
+        <p class="cd-done cd-over" hidden>தங்கள் வருகைக்கும் ஆசிகளுக்கும் நன்றி<small>{event.hostsTa}</small></p>
       </div>
 
       <div class="actions reveal">
@@ -137,19 +138,25 @@ const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(calendar.
       </div>
       <h2 id="where" class="section-title reveal"><span>வழிகாட்டி</span></h2>
       <div class="loc-grid">
-        <div class="qr-card reveal">
-          <p class="pill">இருப்பிடம்</p>
+        <div class="loc-card reveal">
           <a class="qr" href={event.mapUrl} target="_blank" rel="noopener" aria-label="Open location in Google Maps">
             <Fragment set:html={qrSvg} />
             <span class="pin" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M12 22s7-6.4 7-12a7 7 0 1 0-14 0c0 5.6 7 12 7 12z" fill="#c8102e" /><circle cx="12" cy="10" r="2.6" fill="#fff" /></svg>
             </span>
           </a>
-          <p class="pill">ஸ்கேன் செய்யுங்கள்</p>
-          <a class="btn btn-maroon btn-block" href={event.mapUrl} target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-6.4 7-12a7 7 0 1 0-14 0c0 5.6 7 12 7 12z" /><circle cx="12" cy="10" r="2.6" /></svg>
-            வழியைப் பார்க்க
-          </a>
+          <div class="loc-info">
+            <p class="loc-label">இருப்பிடம்</p>
+            <p class="loc-addr">இல. 20, 2ஆம் குறுக்குத் தெரு,<br />கொழும்புத்துறை, யாழ்ப்பாணம்.</p>
+            <p class="loc-hint">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M8 12h8" /></svg>
+              QR ஐ கமராவில் ஸ்கேன் செய்யுங்கள்
+            </p>
+            <a class="loc-btn" href={event.mapUrl} target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8z" /></svg>
+              வழியைப் பார்க்க
+            </a>
+          </div>
         </div>
         <div class="map reveal">
           <iframe

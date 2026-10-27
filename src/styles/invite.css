@@ -966,3 +966,63 @@ body.opened main { animation: step-in 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both; 
   .foot { padding-left: 18px; padding-right: 18px; }
 }
 .blessing, .lead, .home { white-space: nowrap; max-width: 100%; }
+
+/* ================= During / after the ceremony ================= */
+.cd-done small { display: block; margin-top: 4px; font-size: 0.85rem; font-weight: 700; color: #ffe9b8; opacity: 0.9; }
+/* after the ceremony: no need to save the date or share it */
+body.event-over .actions,
+body.event-over .dock a[href*="calendar.google"] { display: none; }
+.countdown [hidden] { display: none !important; }
+.cd-over { font-size: clamp(1.05rem, 4.6vw, 1.4rem); }
+
+/* ================= Location card ================= */
+.loc-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 22px;
+  background: #fffdf8;
+  border: 1px solid rgba(200, 150, 46, 0.35);
+  box-shadow: 0 1px 2px rgba(110, 50, 10, 0.06), 0 16px 32px -20px rgba(110, 50, 10, 0.4);
+  text-align: center;
+}
+.loc-card .qr { width: 150px; flex: none; padding: 10px; border-radius: 16px; box-shadow: 0 0 0 1.5px var(--gold), 0 6px 16px -8px rgba(110, 50, 10, 0.35); }
+.loc-card .qr .pin { width: 34px; height: 34px; border-radius: 9px; }
+.loc-card .qr .pin svg { width: 24px; height: 24px; }
+.loc-info { display: flex; flex-direction: column; gap: 6px; min-width: 0; align-items: center; }
+.loc-label { margin: 0; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; color: var(--gold-d); }
+.loc-addr { margin: 0; font-size: 1rem; font-weight: 800; line-height: 1.45; color: var(--maroon); }
+.loc-hint { display: flex; align-items: center; gap: 6px; margin: 2px 0 6px; font-size: 0.8rem; font-weight: 700; color: var(--muted); }
+.loc-hint svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.loc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 20px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--maroon-2), var(--maroon));
+  color: #fff5e1;
+  font-weight: 800;
+  font-size: 0.92rem;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 8px 18px -8px rgba(110, 12, 28, 0.7);
+  transition: transform 0.2s ease;
+}
+.loc-btn:active { transform: scale(0.97); }
+.loc-btn svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+@media (max-width: 860px) {
+  .loc-card { flex-direction: row; align-items: center; text-align: left; padding: 16px; gap: 16px; }
+  .loc-card .qr { width: 118px; padding: 7px; }
+  .loc-info { align-items: flex-start; }
+  .loc-addr { font-size: 0.9rem; }
+  .loc-hint { font-size: 0.72rem; }
+  .loc-btn { padding: 9px 14px; font-size: 0.82rem; }
+}
+@media (max-width: 340px) {
+  .loc-card .qr { width: 100px; }
+  .loc-addr { font-size: 0.82rem; }
+}

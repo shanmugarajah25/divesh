@@ -243,6 +243,7 @@ document.querySelectorAll('.reveal').forEach((el, i) => {
 /* ---------- Countdown ---------- */
 const cd = document.getElementById('countdown')!;
 const start = new Date(cd.dataset.start!).getTime();
+const end = new Date(cd.dataset.end!).getTime();
 const units = {
   d: cd.querySelector('[data-u="d"]')!,
   h: cd.querySelector('[data-u="h"]')!,
@@ -251,11 +252,18 @@ const units = {
 };
 const pad = (n: number) => String(n).padStart(2, '0');
 function tick() {
-  const diff = start - Date.now();
+  // start/end carry +05:30, so every phone counts to Colombo (Asia/Colombo) time
+  const now = Date.now();
+  const diff = start - now;
   if (diff <= 0) {
+    const over = now >= end;
     cd.querySelector('.cd-grid')!.setAttribute('hidden', '');
     cd.querySelector('.cd-label')!.setAttribute('hidden', '');
-    cd.querySelector('.cd-done')!.removeAttribute('hidden');
+    cd.querySelector('.cd-live')!.toggleAttribute('hidden', over);
+    cd.querySelector('.cd-over')!.toggleAttribute('hidden', !over);
+    document.body.classList.toggle('event-live', !over);
+    document.body.classList.toggle('event-over', over);
+    if (!over) setTimeout(tick, Math.min(60000, end - now + 50));
     return;
   }
   const s = Math.floor(diff / 1000);
