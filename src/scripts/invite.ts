@@ -191,6 +191,38 @@ if (detailsBtn && detailsSec) {
   new IntersectionObserver(([e]) => detailsBtn.classList.toggle('active', e.isIntersecting), { threshold: 0.3 }).observe(detailsSec);
 }
 
+/* ---------- Keep host name lines on one line on every phone ---------- */
+function fitOneLine() {
+  document.querySelectorAll<HTMLElement>('.hosts, .foot-ta, .blessing, .lead, .home').forEach((el) => {
+    el.style.fontSize = '';
+    let size = parseFloat(getComputedStyle(el).fontSize);
+    const box = el.parentElement!.clientWidth - 8;
+    let guard = 40;
+    while (el.scrollWidth > box && size > 10 && guard--) {
+      size -= 0.5;
+      el.style.fontSize = size + 'px';
+    }
+  });
+}
+fitOneLine();
+document.fonts?.ready.then(fitOneLine);
+window.addEventListener('resize', fitOneLine);
+window.addEventListener('load', fitOneLine);
+
+/* ---------- "Scroll for more" hint after the doors open ---------- */
+const hint = document.querySelector<HTMLButtonElement>('.scroll-hint');
+if (hint) {
+  const hide = () => { if (window.scrollY > 60) { hint.classList.remove('show'); window.removeEventListener('scroll', hide); } };
+  const showHint = () => setTimeout(() => { if (window.scrollY < 60) { hint.classList.add('show'); window.addEventListener('scroll', hide, { passive: true }); } }, 2600);
+  if (document.body.classList.contains('opened')) showHint();
+  else openBtn.addEventListener('click', showHint, { once: true });
+  hint.addEventListener('click', () => {
+    const target = document.querySelector<HTMLElement>('.words') ?? document.getElementById('details');
+    if (target) lenis ? lenis.scrollTo(target, { offset: -20, duration: 1.3 }) : target.scrollIntoView({ behavior: 'smooth' });
+    hint.classList.remove('show');
+  });
+}
+
 /* ---------- Scroll reveal ---------- */
 const io = new IntersectionObserver(
   (entries) => {

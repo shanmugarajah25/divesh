@@ -916,3 +916,53 @@ body.opened main { animation: step-in 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both; 
 @media (prefers-reduced-motion: reduce) {
   body.opened main { animation: none; }
 }
+
+/* safer default size; script fine-tunes so it always fits on one line */
+.hosts { font-size: clamp(0.85rem, 4.4vw, 2rem); max-width: 100%; }
+.foot-ta { font-size: clamp(0.78rem, 3.7vw, 1.1rem); max-width: 100%; }
+.foot { padding-left: 12px; padding-right: 12px; }
+
+/* ================= Scroll hint ================= */
+.scroll-hint {
+  position: fixed;
+  left: 50%;
+  bottom: calc(96px + env(safe-area-inset-bottom));
+  z-index: 57;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 16px 6px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 248, 236, 0.95);
+  color: var(--maroon);
+  font: 800 0.8rem/1.2 var(--ta);
+  box-shadow: 0 0 0 1.5px rgba(200, 150, 46, 0.7), 0 10px 24px -10px rgba(90, 20, 10, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 12px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.scroll-hint.show { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+.scroll-hint svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; animation: hint-bob 1.4s ease-in-out infinite; }
+@keyframes hint-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+@media (min-width: 861px) { .scroll-hint { bottom: calc(100px + env(safe-area-inset-bottom)); } }
+
+/* ================= Mobile spacing pass ================= */
+@media (max-width: 600px) {
+  .hero { padding-left: 18px; padding-right: 18px; }
+  .words { padding: 0 6px; }
+  .blessing, .lead { font-size: clamp(1.02rem, 4.6vw, 1.3rem); line-height: 1.55; }
+  .plaque { max-width: calc(100% - 30px); padding: 10px 22px 12px; margin: 14px auto 8px; }
+  .plaque::before { left: -10px; width: 15px; height: 15px; margin-top: -7.5px; }
+  .plaque::after { right: -10px; width: 15px; height: 15px; margin-top: -7.5px; }
+  .plaque-ta { font-size: clamp(1.45rem, 7.6vw, 2.2rem); }
+  .home { font-size: clamp(1rem, 4.5vw, 1.25rem); }
+  .invite-text { font-size: clamp(0.95rem, 4.1vw, 1.1rem); padding: 0 4px; }
+  .details, .location { padding-left: 18px; padding-right: 18px; }
+  .foot { padding-left: 18px; padding-right: 18px; }
+}
+.blessing, .lead, .home { white-space: nowrap; max-width: 100%; }
