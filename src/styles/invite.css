@@ -22,7 +22,7 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+html { -webkit-text-size-adjust: 100%; overflow-x: hidden; background: var(--cream-2); }
 html, body { max-width: 100%; }
 main { overflow-x: clip; }
 
@@ -428,13 +428,6 @@ main { position: relative; }
   color: #fff3d6;
   box-shadow: 0 0 0 3px #e7c262, 0 24px 40px -20px rgba(86, 8, 19, 0.7);
 }
-.cd-label { margin: 0 0 14px; font-weight: 700; font-size: 1.05rem; color: var(--gold-l); }
-.cd-label small { font-family: var(--en-caps); letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.8; margin-left: 6px; }
-.cd-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-.cd-grid div { padding: 10px 4px; border-radius: 14px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(236, 201, 106, 0.3); }
-.cd-grid b { display: block; font-family: var(--en-caps); font-size: clamp(1.6rem, 7vw, 2.3rem); color: #ffe7a0; font-variant-numeric: tabular-nums; }
-.cd-grid span { display: block; font-size: 0.82rem; line-height: 1.3; opacity: 0.9; }
-.cd-grid span small { font-family: var(--en-caps); letter-spacing: 0.1em; }
 .cd-done { margin: 0; font-family: var(--ta-display); font-weight: 800; font-size: 1.4rem; color: #ffe7a0; }
 
 .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 18px; }
@@ -607,9 +600,7 @@ body.opened .flyby { animation: flyby 7s cubic-bezier(0.45, 0.05, 0.4, 0.95) 0.9
 .card.in:hover { transform: translateY(-6px); box-shadow: 0 1px 0 #fff inset, 0 28px 50px -24px rgba(110, 50, 10, 0.55); }
 
 /* countdown digit flip */
-.cd-grid b.tick { animation: flip 0.5s ease; }
 @keyframes flip { 0% { transform: rotateX(0); } 50% { transform: rotateX(90deg); opacity: 0.4; } 100% { transform: rotateX(0); } }
-.cd-grid div { perspective: 300px; }
 
 /* map pin bounce */
 .qr .pin svg { animation: pin 1.8s ease-in-out infinite; }
@@ -716,7 +707,6 @@ body.locked .reveal { transition: none; }
   .blessings::before { inset: 10px 4px; border-radius: 24px; }
   .section-title span { font-size: 1.5rem; }
   .countdown { padding: 14px 10px; }
-  .cd-grid b { font-size: 1.5rem; }
   .map, .map iframe { min-height: 220px; }
   .bell { width: 30px; }
   .bell-2, .bell-3 { width: 34px; }
@@ -731,8 +721,6 @@ body.locked .reveal { transition: none; }
   .qr-card .qr { grid-column: 1; grid-row: 1 / span 3; width: 130px; padding: 8px; }
   .qr-card .pill { justify-self: start; font-size: 0.8rem; }
   .qr-card .btn-block { margin: 0; padding: 10px 12px; font-size: 0.85rem; min-height: 40px; }
-  .cd-grid { gap: 6px; }
-  .cd-grid span { font-size: 0.74rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -970,8 +958,6 @@ body.opened main { animation: step-in 2.4s cubic-bezier(0.2, 0.7, 0.2, 1) both; 
 /* ================= During / after the ceremony ================= */
 .cd-done small { display: block; margin-top: 4px; font-size: 0.85rem; font-weight: 700; color: #ffe9b8; opacity: 0.9; }
 /* after the ceremony: no need to save the date or share it */
-body.event-over .actions,
-body.event-over .dock a[href*="calendar.google"] { display: none; }
 .countdown [hidden] { display: none !important; }
 .cd-over { font-size: clamp(1.05rem, 4.6vw, 1.4rem); }
 

@@ -8,15 +8,13 @@ interface Props {
 }
 
 const {
-  title = `தொட்டில் விழா அழைப்பிதழ்`,
-  description = `எமது செல்வப் புதல்வனின் தொட்டில் விழா. ${event.dateText} (${event.dayTa}) காலை ${event.timeText}, கொழும்புத்துறை, யாழ்ப்பாணம்.`,
+  title = `${event.babyTaOf} தொட்டில் விழா`,
+  description = `${event.babyTaOf} தொட்டில் விழா ${event.dateText} (${event.dayTa}) காலை ${event.timeText} கொழும்புத்துறை, யாழ்ப்பாணத்தில் நடைபெற்றது. ஆசீர்வதித்த அனைவருக்கும் நன்றிகள்.`,
 } = Astro.props;
 
 const siteUrl = Astro.site ?? new URL(event.siteUrl);
 const canonical = new URL(Astro.url.pathname, siteUrl).href.replace(/\/$/, '');
 const ogImage = new URL('/og.jpg?v=2', siteUrl).href;
-const ogTitle = 'தொட்டில் விழா அழைப்பிதழ்';
-const ogDesc = `${event.dateText} (${event.dayTa}) · காலை ${event.timeText} · கொழும்புத்துறை, யாழ்ப்பாணம். அன்புடன் அழைக்கின்றோம்.`;
 const eventLd = {
   '@context': 'https://schema.org',
   '@type': 'Event',
@@ -31,7 +29,7 @@ const eventLd = {
   location: {
     '@type': 'Place',
     name: 'எமது இல்லம்',
-    address: { '@type': 'PostalAddress', streetAddress: 'No. 20, 2nd Cross Street', addressLocality: 'Columbuthurai, Jaffna', addressCountry: 'LK' },
+    address: { '@type': 'PostalAddress', addressLocality: 'Jaffna', addressCountry: 'LK' },
   },
   organizer: { '@type': 'Person', name: event.hostsTa },
 };
@@ -49,23 +47,23 @@ const eventLd = {
     <meta name="theme-color" content="#6e0c1c" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="தொட்டில் விழா" />
+    <meta property="og:site_name" content={event.babyTa} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:title" content={ogTitle} />
-    <meta property="og:description" content={ogDesc} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:secure_url" content={ogImage} />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="தொட்டில் விழா அழைப்பிதழ் · 05/11/2026 காலை 10.00 மணி" />
+    <meta property="og:image:alt" content="தொட்டில் விழா · 05/11/2026 காலை 10.00 மணி" />
     <meta property="og:locale" content="ta_LK" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={ogTitle} />
-    <meta name="twitter:description" content={ogDesc} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content="தொட்டில் விழா அழைப்பிதழ்" />
-    <meta name="apple-mobile-web-app-title" content="தொட்டில் விழா" />
+    <meta name="twitter:image:alt" content="தொட்டில் விழா" />
+    <meta name="apple-mobile-web-app-title" content={event.babyTa} />
     <meta name="format-detection" content="telephone=no" />
     <script type="application/ld+json" set:html={JSON.stringify(eventLd)} />
 

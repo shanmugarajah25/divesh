@@ -1,0 +1,113 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Defs from '../components/Defs.astro';
+import Bell from '../components/Bell.astro';
+import Diya from '../components/Diya.astro';
+import Divider from '../components/Divider.astro';
+import FeatherFan from '../components/FeatherFan.astro';
+import baby from '../assets/baby-murugan.jpg';
+import muruganVel from '../assets/murugan-vel.png';
+import muruganCradle from '../assets/murugan-cradle.png';
+import { event } from '../data/event';
+---
+
+<Layout>
+  <Defs />
+  <canvas id="petals" aria-hidden="true"></canvas>
+
+  <!-- Opening: temple doors -->
+  <div id="intro" class="intro" role="dialog" aria-label="Thottil Vizha">
+    <div class="door-light" aria-hidden="true"></div>
+    <div class="door door-l" aria-hidden="true"><span class="knob"></span></div>
+    <div class="door door-r" aria-hidden="true"><span class="knob"></span></div>
+    <div class="intro-inner">
+      <div class="intro-baby">
+        <Image src={muruganVel} alt="" widths={[140, 260]} sizes="128px" quality={72} loading="eager" fetchpriority="high" class="bounce" />
+      </div>
+      <p class="om">ஓம் சரவணபவ</p>
+      <p class="intro-sub">அன்புடன் நன்றி கூறுகின்றோம்</p>
+      <h1 class="intro-title"><small>எமது செல்வப் புதல்வன் {event.babyTaOf}</small><br />தொட்டில் விழா</h1>
+      <button id="open-invite" class="btn btn-gold" type="button">
+        உள்ளே செல்ல
+      </button>
+    </div>
+  </div>
+  <main id="invite"><span id="top"></span>
+    <!-- Hanging bells and toran -->
+    <div class="toran" aria-hidden="true"></div>
+    <Bell class="bell-1" delay="0s" drop={40} />
+    <Bell class="bell-4" delay=".9s" drop={32} />
+
+    <section class="hero">
+      <div class="art reveal">
+        <div class="arch">
+          <div class="swing">
+            <Image src={baby} alt="Baby Murugan on a flower-decked golden cradle" widths={[300, 460, 640]} sizes="(max-width: 860px) 74vw, 380px" quality={70} loading="eager" />
+          </div>
+        </div>
+        <div class="diyas" aria-hidden="true">
+          <Diya delay="0s" /><Diya delay=".4s" /><Diya delay=".8s" />
+        </div>
+      </div>
+
+      <div class="words">
+        <p class="blessing reveal">முருகப்பெருமானின் திருவருளால்</p>
+        <p class="lead reveal">எமது செல்வப் புதல்வன் {event.babyTaOf}</p>
+        <div class="plaque reveal">
+          <span class="plaque-ta">தொட்டில் விழா</span>
+        </div>
+        <p class="home reveal">{event.dateText} · {event.dayTa}</p>
+        <p class="home reveal">எமது இல்லத்தில் நடைபெற்றது</p>
+        <Divider class="reveal" />
+        <p class="invite-text reveal">
+          இந்நன்னாளில் குடும்ப சகிதம் வருகை தந்து, எமது செல்வனை ஆசீர்வதித்த அனைவருக்கும் எமது மனமார்ந்த நன்றிகள்.
+        </p>
+      </div>
+    </section>
+
+
+    <section class="details">
+      <div class="sec-art art-cradle reveal" aria-hidden="true">
+        <div class="rock"><Image src={muruganCradle} alt="" widths={[200, 400]} sizes="(max-width: 480px) 170px, 200px" quality={72} /></div>
+      </div>
+      <div class="countdown reveal">
+        <p class="cd-done cd-over">தங்கள் வருகைக்கும் ஆசிகளுக்கும் நன்றி<small>{event.hostsTa}</small></p>
+      </div>
+
+      <div class="actions reveal">
+        <a class="btn btn-maroon" href="/">முகப்புக்குச் செல்ல</a>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <Divider />
+      <p class="foot-ta reveal">நன்றியுடன்</p>
+      <p class="hosts reveal">{event.hostsTa}</p>
+      <div class="foot-art" aria-hidden="true">
+        <FeatherFan class="fan-foot reveal" count={7} spread={120} />
+        <Image src={muruganVel} alt="" widths={[150, 300]} sizes="(max-width: 480px) 130px, 150px" quality={72} class="foot-murugan" />
+      </div>
+      <p class="vetrivel">வெற்றிவேல் முருகனுக்கு அரோகரா!</p>
+    </footer>
+  </main>
+
+  <button class="scroll-hint" type="button" aria-label="கீழே உருட்டவும்">
+    <span>மேலும் விபரங்களுக்கு கீழே உருட்டவும்</span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+  </button>
+
+  <!-- Sticky bottom bar -->
+  <nav class="dock" aria-label="விரைவு இணைப்புகள்">
+    <a href="/" class="dock-btn dock-main">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5" /><path d="M5.5 10v10h13V10" /><path d="M10 20v-5.5h4V20" /></svg>
+      <span>முகப்பு</span>
+    </a>
+    <a href="#top" class="dock-btn" data-scroll>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" /></svg>
+      <span>மேலே</span>
+    </a>
+  </nav>
+
+  <script src="../scripts/invite.ts"></script>
+</Layout>

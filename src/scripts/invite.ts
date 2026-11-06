@@ -185,11 +185,6 @@ document.querySelectorAll<HTMLAnchorElement>('.dock a[data-scroll]').forEach((a)
     else target.scrollIntoView({ behavior: 'smooth' });
   });
 });
-const detailsBtn = document.querySelector('.dock a[href="#details"]');
-const detailsSec = document.getElementById('details');
-if (detailsBtn && detailsSec) {
-  new IntersectionObserver(([e]) => detailsBtn.classList.toggle('active', e.isIntersecting), { threshold: 0.3 }).observe(detailsSec);
-}
 
 /* ---------- Keep host name lines on one line on every phone ---------- */
 const fitEls = Array.from(document.querySelectorAll<HTMLElement>('.hosts, .foot-ta, .blessing, .lead, .home'));
@@ -224,7 +219,7 @@ if (hint) {
   if (document.body.classList.contains('opened')) showHint();
   else openBtn.addEventListener('click', showHint, { once: true });
   hint.addEventListener('click', () => {
-    const target = document.querySelector<HTMLElement>('.words') ?? document.getElementById('details');
+    const target = document.querySelector<HTMLElement>('.words');
     if (target) lenis ? lenis.scrollTo(target, { offset: -20, duration: 1.3 }) : target.scrollIntoView({ behavior: 'smooth' });
     hint.classList.remove('show');
   });
@@ -246,58 +241,3 @@ document.querySelectorAll('.reveal').forEach((el, i) => {
   (el as HTMLElement).style.setProperty('--d', `${(i % 6) * 80}ms`);
   io.observe(el);
 });
-
-/* ---------- Countdown ---------- */
-const cd = document.getElementById('countdown')!;
-const start = new Date(cd.dataset.start!).getTime();
-const end = new Date(cd.dataset.end!).getTime();
-const units = {
-  d: cd.querySelector('[data-u="d"]')!,
-  h: cd.querySelector('[data-u="h"]')!,
-  m: cd.querySelector('[data-u="m"]')!,
-  s: cd.querySelector('[data-u="s"]')!,
-};
-const pad = (n: number) => String(n).padStart(2, '0');
-function tick() {
-  // start/end carry +05:30, so every phone counts to Colombo (Asia/Colombo) time
-  const now = Date.now();
-  const diff = start - now;
-  if (diff <= 0) {
-    const over = now >= end;
-    cd.querySelector('.cd-grid')!.setAttribute('hidden', '');
-    cd.querySelector('.cd-label')!.setAttribute('hidden', '');
-    cd.querySelector('.cd-live')!.toggleAttribute('hidden', over);
-    cd.querySelector('.cd-over')!.toggleAttribute('hidden', !over);
-    document.body.classList.toggle('event-live', !over);
-    document.body.classList.toggle('event-over', over);
-    if (!over) setTimeout(tick, Math.min(60000, end - now + 50));
-    return;
-  }
-  const s = Math.floor(diff / 1000);
-  const set = (el: Element, v: string) => {
-    if (el.textContent === v) return;
-    el.textContent = v;
-    el.classList.remove('tick');
-    void (el as HTMLElement).offsetWidth;
-    el.classList.add('tick');
-  };
-  set(units.d, pad(Math.floor(s / 86400)));
-  set(units.h, pad(Math.floor((s % 86400) / 3600)));
-  set(units.m, pad(Math.floor((s % 3600) / 60)));
-  set(units.s, pad(s % 60));
-  setTimeout(tick, 1000 - (Date.now() % 1000));
-}
-tick();
-
-/* ---------- Map loads only after opening (saves data on mobile) ---------- */
-function loadMap() {
-  const f = document.querySelector<HTMLIFrameElement>('.map iframe');
-  if (f && !f.src && f.dataset.src) f.src = f.dataset.src;
-}
-// load the Google map only when guests scroll near it
-const mapBox = document.querySelector('.map');
-if (mapBox) {
-  new IntersectionObserver((entries, obs) => {
-    if (entries.some((e) => e.isIntersecting)) { loadMap(); obs.disconnect(); }
-  }, { rootMargin: '400px 0px' }).observe(mapBox);
-}
